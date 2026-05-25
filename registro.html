@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - SGG ET29</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="classic-theme">
+
+    <div class="theme-switcher">
+        <button id="themeToggle" aria-label="Cambiar tema visual">
+            <span id="themeIcon">🌙</span>
+        </button>
+    </div>
+
+    <main class="container">
+        <section class="card-login">
+            <header>
+                <h1>Crear Cuenta</h1>
+                <p>Completa tus datos para comenzar</p>
+            </header>
+
+            <form id="registroForm" novalidate>
+                
+                <div class="form-group">
+                    <label for="apellido">Apellido/s</label>
+                    <input type="text" id="apellido" name="apellido" placeholder="Tu apellido" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="nombre">Nombre/s</label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="fechaNacimiento">Fecha de Nacimiento</label>
+                    <input type="date" id="fechaNacimiento" name="fechaNacimiento" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Correo electrónico</label>
+                    <input type="email" id="email" name="email" placeholder="correo@ejemplo.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="repeatEmail">Repetir correo electrónico</label>
+                    <input type="email" id="repeatEmail" name="repeatEmail" placeholder="Repite tu correo" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Contraseña</label>
+                    <input type="password" id="password" name="password" placeholder="Mínimo 8 caracteres" required>
+                    <small style="font-size: 0.7rem; color: var(--text-muted); display: block; margin-top: 5px; text-align: left;">
+                        Debe tener: 8+ caracteres, Mayúscula, Minúscula, Número y Símbolo.
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label for="repeatPassword">Repetir contraseña</label>
+                    <input type="password" id="repeatPassword" name="repeatPassword" placeholder="Repite tu contraseña" required>
+                </div>
+
+                <div id="errorMessage" class="error-msg" role="alert" aria-live="assertive"></div>
+                <div id="successMessage" class="error-msg" style="color: #2ecc71;" role="alert" aria-live="assertive"></div>
+
+                <button type="submit" class="btn-primary">Finalizar Registro</button>
+            </form>
+
+            <footer>
+                <p>¿Ya tienes cuenta? <a href="index.html">Inicia sesión aquí</a></p>
+            </footer>
+        </section>
+    </main>
+
+    <script src="js/theme.js"></script>
+    <script src="js/registro.js"></script>
+</body>
+</html>

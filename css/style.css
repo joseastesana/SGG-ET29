@@ -65,21 +65,29 @@ body.vanguard-theme {
     box-sizing: border-box;
 }
 
+/* ============================================================
+   ESTILOS BASE (Actualizados para evitar desbordamiento)
+   ============================================================ */
+
 body {
     font-family: var(--font-family);
     background: var(--bg-gradient);
-    height: 100vh;
-    display: flex;         /* Centrado perfecto */
+    /* EL CAMBIO MÁGICO: de 'height' a 'min-height' */
+    min-height: 100vh; 
+    display: flex;         
     justify-content: center; 
     align-items: center;
     color: var(--text-main);
+    /* Agregamos padding para que la tarjeta no se pegue a los bordes al scrollear */
+    padding: 40px 20px; 
 }
 
 .container {
     width: 100%;
-    max-width: 400px;
-    padding: 20px;
+    /* Le damos un poquito más de ancho porque ahora hay textos más largos */
+    max-width: 450px; 
 }
+
 
 .card-login {
     background-color: var(--card-bg);

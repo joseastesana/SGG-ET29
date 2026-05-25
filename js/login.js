@@ -1,76 +1,57 @@
 // js/login.js
 
-// 1. "Semilla" de datos: Simulamos que el usuario ya existe en LocalStorage
-// Esto lo hacemos para que el sistema tenga con qué comparar.
-const USUARIO_MAESTRO = {
-    email: "usuario1@gmail.com",
-    pass: "$123ASD$"
-};
-
-// Guardamos al usuario maestro si no existe (Simulación de DB)
-if (!localStorage.getItem(USUARIO_MAESTRO.email)) {
-    localStorage.setItem(USUARIO_MAESTRO.email, USUARIO_MAESTRO.pass);
-}
-
-// 2. Captura del formulario
+// Capturamos los elementos del DOM
 const loginForm = document.getElementById('loginForm');
 const errorDisplay = document.getElementById('errorMessage');
 
 loginForm.addEventListener('submit', (e) => {
-    e.preventDefault(); // Evitamos que la página se recargue (Ortogonalidad)
+    e.preventDefault(); // Evitamos que la página se recargue
 
-    // Obtenemos los valores (Nivel Sintáctico)
-    const emailIngresado = document.getElementById('email').value;
-    const passIngresada = document.getElementById('password').value;
+    // 1. Captura de datos
+    const emailInput = document.getElementById('email').value.trim();
+    const passwordInput = document.getElementById('password').value;
 
-    // Limpiamos errores previos
+    // Limpiamos mensajes de error previos
     errorDisplay.textContent = '';
 
-    // 3. Validación Semántica (Lógica de negocio)
-    if (validarCredenciales(emailIngresado, passIngresada)) {
-        // Éxito pragmático: El usuario entra al sistema
-        alert("¡Bienvenido al Sistema de Gastos!");
-        localStorage.setItem("sesion_activa", emailIngresado);
-        // window.location.href = "dashboard.html"; // Comentado hasta tener la otra pantalla
-    } else {
-        // Error de validación
-        errorDisplay.textContent = "Correo o contraseña incorrectos. Inténtalo de nuevo.";
+    // 2. Validación de campos vacíos
+    if (!emailInput || !passwordInput) {
+        errorDisplay.textContent = "Por favor, completa todos los campos.";
+        return;
     }
-});
 
-/**
- * Función reutilizable para validar (Principio DRY)
- */
-function validarCredenciales(email, pass) {
-    const passwordGuardada = localStorage.getItem(email);
-    return passwordGuardada === pass;
-}
+    // 3. Lógica de Verificación (Consultando nuestra "Base de Datos" LocalStorage)
+    const datosGuardados = localStorage.getItem(emailInput);
 
-// --- LÓGICA DEL SWITCHER DE DISEÑO ---
+    if (datosGuardados) {
+        try {
+            // DESERIALIZACIÓN: Convertimos el texto JSON en objeto JS
+            const usuario = JSON.parse(datosGuardados);
 
-const themeToggle = document.getElementById('themeToggle');
-const themeIcon = document.getElementById('themeIcon');
-const body = document.body;
+            // Verificamos si la contraseña coincide
+            if (usuario.password === passwordInput) {
+                
+                // ÉXITO: Guardamos el nombre en sessionStorage para saludarlo en el Dashboard
+                sessionStorage.setItem('usuarioActivo', usuario.nombre);
+                
+                // Feedback visual antes de redirigir
+                console.log("Login exitoso para:", usuario.nombre);
+                
+                // Redirección al Dashboard (Panel de Control)
+                // Nota: Asegúrate de tener creado el archivo dashboard.html
+                window.location.href = "dashboard.html";
 
-// 1. Verificar si ya hay un tema guardado en LocalStorage
-const currentTheme = localStorage.getItem('theme');
-
-if (currentTheme === 'vanguard') {
-    body.classList.add('vanguard-theme');
-    themeIcon.textContent = '☀️'; // Cambia a sol si está en modo oscuro/vanguard
-}
-
-// 2. Escuchar el click del botón
-themeToggle.addEventListener('click', () => {
-    // Alternar la clase en el body
-    body.classList.toggle('vanguard-theme');
-
-    // Cambiar el ícono y guardar la preferencia
-    if (body.classList.contains('vanguard-theme')) {
-        themeIcon.textContent = '☀️';
-        localStorage.setItem('theme', 'vanguard');
+            } else {
+                // FALLA: Contraseña incorrecta
+                errorDisplay.textContent = "La contraseña ingresada es incorrecta.";
+            }
+        } catch (error) {
+            // Manejo de errores por si hay datos "sucios" (de pruebas anteriores sin formato JSON)
+            console.error("Error al leer el usuario:", error);
+            errorDisplay.textContent = "Error en el formato de datos. Por favor, regístrate de nuevo.";
+        }
     } else {
-        themeIcon.textContent = '🌙';
-        localStorage.setItem('theme', 'classic');
+        // FALLA: El email no existe en LocalStorage
+        errorDisplay.textContent = "El correo electrónico no está registrado.";
     }
 });
