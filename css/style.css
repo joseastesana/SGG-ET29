@@ -1,0 +1,180 @@
+/* ============================================================
+   CONFIGURACIÓN DE ESTILOS (A/B TESTING)
+   Principio ETC: Cambiando estas variables cambia toda la app.
+   ============================================================ */
+
+/* ============================================================
+   ESTILOS DE TEMAS (A/B)
+   ============================================================ */
+
+/* OPCIÓN A (Predeterminada) */
+:root {
+    --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    --card-bg: #ffffff;
+    --primary-color: #2c3e50;
+    --accent-color: #3498db;
+    --text-main: #333333;
+    --text-muted: #7f8c8d;
+    --input-border: #dcdde1;
+    --radius: 8px;
+    --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    --font-family: 'Segoe UI', sans-serif;
+}
+
+/* OPCIÓN B (Se activa con la clase .vanguard-theme) */
+body.vanguard-theme {
+    --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    --card-bg: #1e293b;
+    --primary-color: #deff9a; 
+    --accent-color: #deff9a;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --input-border: #334155;
+    --radius: 24px;
+    --shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    --font-family: 'Segoe UI', sans-serif;
+}
+
+/* Estilo del botón Switcher (fijo en la esquina) */
+.theme-switcher {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+#themeToggle {
+    background: var(--card-bg);
+    border: 2px solid var(--accent-color);
+    color: var(--text-main);
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+}
+
+/* ============================================================
+   ESTILOS BASE (ORTOGONALIDAD: El layout no cambia)
+   ============================================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    background: var(--bg-gradient);
+    height: 100vh;
+    display: flex;         /* Centrado perfecto */
+    justify-content: center; 
+    align-items: center;
+    color: var(--text-main);
+}
+
+.container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+}
+
+.card-login {
+    background-color: var(--card-bg);
+    padding: 40px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    text-align: center;
+}
+
+header h1 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+header p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 30px;
+}
+
+/* FORMULARIO */
+.form-group {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+/* Accesibilidad WCAG: Labels claros */
+label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-main);
+}
+
+input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid var(--input-border);
+    border-radius: calc(var(--radius) / 2);
+    background-color: transparent;
+    color: var(--text-main);
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
+/* BOTONES */
+.btn-primary {
+    width: 100%;
+    padding: 14px;
+    background-color: var(--accent-color);
+    color: #1a1a1a; /* Contraste para la opción B */
+    border: none;
+    border-radius: calc(var(--radius) / 2);
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s, filter 0.2s;
+    margin-top: 10px;
+}
+
+/* En el estilo clásico, el texto del botón debería ser blanco */
+:root[style*="f5f7fa"] .btn-primary { color: white; } 
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+}
+
+/* MENSAJES DE ERROR (WCAG) */
+.error-msg {
+    color: #e74c3c;
+    font-size: 0.85rem;
+    margin-bottom: 15px;
+    min-height: 1.2rem;
+}
+
+footer {
+    margin-top: 25px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+footer a {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
