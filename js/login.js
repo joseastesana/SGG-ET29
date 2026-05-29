@@ -1,25 +1,5 @@
 // js/login.js
 
-// Funcionalidad de Mostrar/Ocultar Contraseña
-const togglePassword = document.getElementById('togglePassword');
-const passwordInput = document.getElementById('password');
-
-if (togglePassword && passwordInput) { // Verificamos que existan en la pantalla
-    togglePassword.addEventListener('click', () => {
-        // 1. Verificamos el tipo actual del input
-        const tipoActual = passwordInput.getAttribute('type');
-        
-        // 2. Si es password lo pasamos a text, y viceversa
-        if (tipoActual === 'password') {
-            passwordInput.setAttribute('type', 'text');
-            togglePassword.textContent = '🔒'; // Cambiamos el emoji (opcional)
-        } else {
-            passwordInput.setAttribute('type', 'password');
-            togglePassword.textContent = '👁️';
-        }
-    });
-}
-
 // Capturamos los elementos del DOM
 const loginForm = document.getElementById('loginForm');
 const errorDisplay = document.getElementById('errorMessage');

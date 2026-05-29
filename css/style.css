@@ -214,3 +214,12 @@ footer a:hover {
     /* Evitamos que el botón tenga un borde azul feo al hacer clic */
     outline: none; 
 }
+
+/* Estilo para los textos de ayuda debajo de los inputs */
+.form-hint {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    display: block;
+    margin-top: 5px;
+    text-align: left;
+}
