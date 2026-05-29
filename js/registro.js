@@ -3,6 +3,71 @@ const registroForm = document.getElementById('registroForm');
 const errorDisplay = document.getElementById('errorMessage');
 const successDisplay = document.getElementById('successMessage');
 
+
+// =================================================================
+// 1. ESPERAMOS A QUE EL HTML ESTÉ TOTALMENTE CARGADO
+// =================================================================
+document.addEventListener('DOMContentLoaded', () => {
+    
+    // Capturamos los elementos clave
+    const passwordInputRealTime = document.getElementById('password');
+    const passwordRulesContainer = document.getElementById('passwordRules');
+
+    // Verificamos que estamos en la página correcta (Registro) y los elementos existen
+    if (passwordInputRealTime && passwordRulesContainer) {
+        
+        // Capturamos los requisitos
+        const reqLength = document.getElementById('req-length');
+        const reqUpper = document.getElementById('req-upper');
+        const reqLower = document.getElementById('req-lower');
+        const reqNumber = document.getElementById('req-number');
+        const reqSpecial = document.getElementById('req-special');
+
+        // =================================================================
+        // 2. EL EVENTO INPUT (Se dispara al teclear)
+        // =================================================================
+        passwordInputRealTime.addEventListener('input', (e) => {
+            const valor = e.target.value;
+
+            // Mostrar u ocultar la cajita de reglas
+            if (valor.length > 0) {
+                passwordRulesContainer.classList.add('show');
+            } else {
+                passwordRulesContainer.classList.remove('show');
+            }
+
+            // Evaluamos cada regla en vivo
+            evaluarRequisito(reqLength, valor.length >= 8);
+            evaluarRequisito(reqUpper, /[A-Z]/.test(valor));
+            evaluarRequisito(reqLower, /[a-z]/.test(valor));
+            evaluarRequisito(reqNumber, /\d/.test(valor));
+            evaluarRequisito(reqSpecial, /[\W_]/.test(valor));
+        });
+
+        // =================================================================
+        // 3. LA FÁBRICA DE TILDES Y CRUCES
+        // =================================================================
+        function evaluarRequisito(elemento, esValido) {
+            if (!elemento) return; // Si no encuentra el elemento, aborta en silencio
+
+            const icono = elemento.querySelector('.req-icon');
+
+            if (esValido) {
+                elemento.classList.remove('invalid');
+                elemento.classList.add('valid');
+                if (icono) icono.textContent = '✅';
+            } else {
+                elemento.classList.remove('valid');
+                elemento.classList.add('invalid');
+                if (icono) icono.textContent = '❌';
+            }
+        }
+    }
+});
+
+// ... (Acá abajo dejás tu código anterior del 'submit' para guardar en localStorage)
+
+
 registroForm.addEventListener('submit', (e) => {
     e.preventDefault(); // Ortogonalidad: evitamos que HTML recargue la página
 

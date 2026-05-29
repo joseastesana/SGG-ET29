@@ -223,3 +223,48 @@ footer a:hover {
     margin-top: 5px;
     text-align: left;
 }
+
+/* ============================================================
+   ESTILOS PARA REQUISITOS DE CONTRASEÑA EN TIEMPO REAL
+   ============================================================ */
+.password-requirements {
+    list-style: none; /* Quitamos las viñetas por defecto */
+    padding: 0;
+    margin-top: 8px;
+    font-size: 0.75rem;
+    text-align: left;
+    display: none; /* NUEVO: La ocultamos por defecto */
+}
+
+/* NUEVA CLASE: Para cuando JavaScript decida mostrarla */
+.password-requirements.show {
+    display: block;
+    animation: aparecerSuave 0.3s ease-out forwards;
+}
+
+/* Animación opcional para que no aparezca de golpe */
+@keyframes aparecerSuave {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.password-requirements li {
+    margin-bottom: 4px;
+    transition: color 0.3s ease; /* Efecto suave al cambiar de color */
+}
+
+/* Estado Inválido (Rojo) */
+.password-requirements li.invalid {
+    color: #e74c3c;
+}
+
+/* Estado Válido (Verde) */
+.password-requirements li.valid {
+    color: #2ecc71;
+}

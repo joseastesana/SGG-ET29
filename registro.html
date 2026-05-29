@@ -54,7 +54,14 @@
                         <input type="password" id="password" name="password" placeholder="Mínimo 8 caracteres" required>
                         <button type="button" id="togglePassword" class="btn-eye" aria-label="Mostrar contraseña">👁️</button>
                     </div>
-                    <small class="form-hint">Debe tener: 8+ caracteres, 1 Mayúscula, 1 Minúscula, 1 Número y 1 Símbolo.</small>
+                    
+                    <ul id="passwordRules" class="password-requirements">
+                        <li id="req-length" class="invalid"><span class="req-icon">❌</span> Mínimo 8 caracteres</li>
+                        <li id="req-upper" class="invalid"><span class="req-icon">❌</span> Una letra mayúscula</li>
+                        <li id="req-lower" class="invalid"><span class="req-icon">❌</span> Una letra minúscula</li>
+                        <li id="req-number" class="invalid"><span class="req-icon">❌</span> Un número</li>
+                        <li id="req-special" class="invalid"><span class="req-icon">❌</span> Un símbolo (ej: @, $, !)</li>
+                    </ul>
                 </div>
 
                 <div class="form-group">
@@ -79,6 +86,6 @@
 
     <script src="js/theme.js"></script>
     <script src="js/password-toggle.js"></script>
-    <script src="js/registro.js"></script>
+    <script src="js/registro.js" defer></script>
 </body>
 </html>
