@@ -186,3 +186,31 @@ footer a {
 footer a:hover {
     text-decoration: underline;
 }
+
+/* ============================================================
+   ESTILOS PARA EL BOTÓN DE CONTRASEÑA (El Ojito)
+   ============================================================ */
+
+.password-wrapper {
+    position: relative; /* Crea un "corralito" para el botón */
+    display: flex;
+    align-items: center;
+}
+
+.password-wrapper input {
+    width: 100%;
+    /* Le damos espacio extra a la derecha para que el texto no pise al emoji */
+    padding-right: 40px; 
+}
+
+.btn-eye {
+    position: absolute; /* Se mueve libremente dentro del password-wrapper */
+    right: 10px; /* Lo pegamos al borde derecho */
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 0;
+    /* Evitamos que el botón tenga un borde azul feo al hacer clic */
+    outline: none; 
+}
