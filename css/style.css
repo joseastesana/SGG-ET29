@@ -109,6 +109,7 @@ header p {
     margin-bottom: 30px;
 }
 
+
 /* FORMULARIO */
 .form-group {
     text-align: left;
@@ -268,3 +269,25 @@ footer a:hover {
 .password-requirements li.valid {
     color: #2ecc71;
 }
+
+/* ============================================================
+   ESTILOS PARA ENLACES EXTRA (Olvidé mi contraseña)
+   ============================================================ */
+.form-links {
+    text-align: center; /* Centramos el texto */
+    margin-top: 15px;   /* Lo separamos un poco del botón principal */
+    font-size: 0.85rem; /* Un tamaño un poquito más chico que el texto normal */
+}
+
+.forgot-password {
+    /* Usamos el color primario de tu tema, o un azul de respaldo */
+    color: var(--primary-color, #3498db); 
+    text-decoration: none; /* Le sacamos el subrayado feo por defecto */
+    transition: all 0.3s ease; /* Transición suave para el hover */
+}
+
+.forgot-password:hover {
+    color: var(--primary-dark, #2980b9); /* Un tono más oscuro al pasar el mouse */
+    text-decoration: underline; /* Lo subrayamos solo cuando el usuario lo va a tocar */
+}
+
