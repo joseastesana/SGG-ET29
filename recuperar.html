@@ -32,8 +32,16 @@
                         <label for="newPassword">Nueva Contraseña</label>
                         <div class="password-wrapper">
                             <input type="password" id="newPassword" required>
-                            <button type="button" id="toggleNewPassword" class="btn-eye" aria-label="Mostrar u ocultar contraseña">👁️</button>
+                            <button type="button" id="toggleNewPassword" class="btn-eye" aria-label="Mostrar u ocultar">👁️</button>
                         </div>
+                        
+                        <ul id="passwordRules" class="password-requirements">
+                            <li id="req-length" class="invalid"><span class="req-icon">❌</span> Mínimo 8 caracteres</li>
+                            <li id="req-upper" class="invalid"><span class="req-icon">❌</span> Una letra mayúscula</li>
+                            <li id="req-lower" class="invalid"><span class="req-icon">❌</span> Una letra minúscula</li>
+                            <li id="req-number" class="invalid"><span class="req-icon">❌</span> Un número</li>
+                            <li id="req-special" class="invalid"><span class="req-icon">❌</span> Un símbolo (ej: @, $, !)</li>
+                        </ul>
                     </div>
 
                     <p id="recoverMessage" class="error-text"></p>
@@ -49,6 +57,7 @@
 
     <script src="js/password-toggle.js"></script>
     <script src="js/recuperar.js"></script>
+    <script src="js/password-validation.js"></script>
     <script src="js/theme.js"></script>
 </body>
 </html>

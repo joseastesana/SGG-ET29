@@ -1,4 +1,4 @@
-// js/recuperar.js
+/// js/recuperar.js
 
 // 1. Inicializamos el ojito para esta pantalla (Reutilización de código / DRY)
 if (typeof configurarOjito === "function") {
@@ -7,6 +7,16 @@ if (typeof configurarOjito === "function") {
 
 // 2. Lógica principal de cambio de clave
 document.addEventListener('DOMContentLoaded', () => {
+    
+    // ==========================================
+    // 👇 ¡AQUÍ AGREGAMOS EL CAMBIO! 👇
+    // Inicializamos el validador de contraseñas
+    // ==========================================
+    if (typeof configurarValidacionClave === "function") {
+        configurarValidacionClave('newPassword', 'passwordRules');
+    }
+    // ==========================================
+
     const recoverForm = document.getElementById('recoverForm');
     const mensajeDisplay = document.getElementById('recoverMessage');
 
