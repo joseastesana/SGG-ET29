@@ -1,0 +1,1 @@
+SELECT * FROM sgg_db.usuarios;

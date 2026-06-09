@@ -5,7 +5,7 @@
 // =================================================================
 document.addEventListener('DOMContentLoaded', () => {
     
-    // 1. Capturamos el formulario y los contenedores de mensajes ACÁ ADENTRO
+    // 1. Capturamos el formulario y los contenedores de mensajes
     const registroForm = document.getElementById('registroForm');
     const errorDisplay = document.getElementById('errorMessage');
     const successDisplay = document.getElementById('successMessage');
@@ -66,29 +66,48 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // E. ¿El usuario ya existe en LocalStorage?
-        if (localStorage.getItem(email)) {
-            errorDisplay.textContent = "Este correo ya está registrado. Intenta iniciar sesión.";
-            return;
-        }
+        // ¡ATENCIÓN! Aquí eliminamos la validación de LocalStorage porque 
+        // ahora de eso se encarga nuestra base de datos SGG.
 
-        // Éxito Pragmático: Guardado de Datos
+        // 3. Éxito Pragmático: Enviar al Backend (Node.js)
         const datosUsuario = {
             nombre: nombre,
             apellido: apellido,
+            email: email, 
             fechaNacimiento: fechaNacimiento,
             password: password 
         };
 
-        // Guardamos en el navegador
-        localStorage.setItem(email, JSON.stringify(datosUsuario));
+        successDisplay.textContent = "Procesando registro en el servidor SGG...";
 
-        // Feedback de Usuario (UX) y Redirección
-        successDisplay.textContent = "¡Registro exitoso! Preparando tu espacio...";
-        
-        setTimeout(() => {
-            window.location.href = "index.html";
-        }, 2500);
-    });
+        // Llamamos a nuestro propio servidor SGG
+        fetch('http://localhost:3000/api/registro', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json' // Le decimos que le mandamos un JSON
+            },
+            body: JSON.stringify(datosUsuario) // Convertimos el objeto en texto para el viaje
+        })
+        .then(respuesta => respuesta.json()) // Node nos responde y abrimos su mensaje
+        .then(data => {
+            if (data.mensaje === '¡Registro exitoso en SGG!') {
+                successDisplay.textContent = data.mensaje + " Redirigiendo...";
+                setTimeout(() => {
+                    window.location.href = "index.html"; // Lo mandamos al login
+                }, 2000);
+            } else {
+                // Si el backend nos mandó un error (ej: el mail ya existe)
+                errorDisplay.textContent = data.mensaje;
+                successDisplay.textContent = "";
+            }
+        })
+        .catch(error => {
+            // Si el servidor de Node está apagado o explotó
+            console.error("Error en el Fetch:", error);
+            errorDisplay.textContent = "Error de conexión con el servidor. Intente más tarde.";
+            successDisplay.textContent = "";
+        });
 
-}); // <--- ¡ÉSTA ES LA LLAVE Y EL PARÉNTESIS QUE FALTABAN!
+    }); // <--- Cierra el registroForm.addEventListener
+
+}); // <--- ¡ESTA ES LA LLAVE QUE FALTABA PARA CERRAR EL DOMContentLoaded!
